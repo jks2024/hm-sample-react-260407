@@ -19,15 +19,19 @@ const Memo = () => {
     setNumber(""); // 입력창을 초기화 하기 위해서
   };
 
+  const avg = useMemo(() => getAverage(list), [list]);
+
   return (
     <>
       <input type="text" onChange={(e) => setNumber(e.target.value)} />
       <button onClick={handleInsert}>등록</button>
       <ul>
-        {list && list.map((e, index) => <li key={index}>{e}</li>)};
+        {list && list.map((e, index) => <li key={index}>{e}</li>)}
         <hr />
-        <p>평균값 : {getAverage(list)}</p>
+        <p>평균값 : {avg}</p>
       </ul>
     </>
   );
 };
+
+export default Memo;

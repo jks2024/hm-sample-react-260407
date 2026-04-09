@@ -8,11 +8,12 @@ import DropDown from "./DropDown";
 import CheckBox from "./CheckBox";
 import Table from "./Table";
 import EffectInfo from "./EffectInfo";
+import Memo from "./Memo";
 
 function App() {
   return (
     <>
-      <Table />
+      <Memo />
     </>
   );
 }
