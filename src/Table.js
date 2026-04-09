@@ -3,6 +3,7 @@
 // map 사용
 
 // 마운트 시점에 서버에서 가져오는 것 처럼 구현 해보기
+// 특성 시점에 회원정보 가져 오기, 가져오기 버튼 생성하고 버튼을 누르면 회원정보를 가져와서 보여주기
 
 import { useState, useEffect } from "react";
 import "./App.css";
@@ -22,39 +23,53 @@ const members = [
 
 const Table = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false); // 서버에서 데이터가 내려 올 때 시간이 걸리는 경우 로딩 중 표시를 위해서 사용
 
   const handleTableRowClick = (member) => {
     alert(`${member.name} 이 눌러졌습니다.`);
   };
 
-  useEffect(() => {
-    setData(members);
-  }, []);
+  // useEffect(() => {
+  //   setData(members);
+  // }, []);
+
+  const handleFetchData = () => {
+    // 실제 서버에서 데이터가 들어 오는 것 처럼 시뮬레이션
+    setLoading(true);
+    setTimeout(() => {
+      setData(members);
+      setLoading(false);
+    }, 1500);
+  };
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>이름</th>
-          <th>전화번호</th>
-          <th>나이</th>
-          <th>직업</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data &&
-          data.map((person) => (
-            <tr key={person.id} onClick={() => handleTableRowClick(person)}>
-              <td>{person.id}</td>
-              <td>{person.name}</td>
-              <td>{person.phone}</td>
-              <td>{person.age}</td>
-              <td>{person.job}</td>
-            </tr>
-          ))}
-      </tbody>
-    </table>
+    <>
+      <button onClick={handleFetchData}>회원정보가져오기</button>
+      {loading && "서버에서 데이터를 가져 오는 중.........."}
+      <table>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>이름</th>
+            <th>전화번호</th>
+            <th>나이</th>
+            <th>직업</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data &&
+            data.map((person) => (
+              <tr key={person.id} onClick={() => handleTableRowClick(person)}>
+                <td>{person.id}</td>
+                <td>{person.name}</td>
+                <td>{person.phone}</td>
+                <td>{person.age}</td>
+                <td>{person.job}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </>
   );
 };
 
