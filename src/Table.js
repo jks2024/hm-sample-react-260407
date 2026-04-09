@@ -1,6 +1,10 @@
 // 이름, 전화번호, 나이, 직업으로 구성된 10개의 배열을 생성
 // table 형태로 구성 해 출력
 // map 사용
+
+// 마운트 시점에 서버에서 가져오는 것 처럼 구현 해보기
+
+import { useState, useEffect } from "react";
 import "./App.css";
 
 const members = [
@@ -17,6 +21,16 @@ const members = [
 ];
 
 const Table = () => {
+  const [data, setData] = useState([]);
+
+  const handleTableRowClick = (member) => {
+    alert(`${member.name} 이 눌러졌습니다.`);
+  };
+
+  useEffect(() => {
+    setData(members);
+  }, []);
+
   return (
     <table>
       <thead>
@@ -29,15 +43,16 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        {members.map((person) => (
-          <tr key={person.id}>
-            <td>{person.id}</td>
-            <td>{person.name}</td>
-            <td>{person.phone}</td>
-            <td>{person.age}</td>
-            <td>{person.job}</td>
-          </tr>
-        ))}
+        {data &&
+          data.map((person) => (
+            <tr key={person.id} onClick={() => handleTableRowClick(person)}>
+              <td>{person.id}</td>
+              <td>{person.name}</td>
+              <td>{person.phone}</td>
+              <td>{person.age}</td>
+              <td>{person.job}</td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );

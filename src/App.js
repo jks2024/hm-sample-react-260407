@@ -7,6 +7,7 @@ import NameCardEx from "./StateEx";
 import DropDown from "./DropDown";
 import CheckBox from "./CheckBox";
 import Table from "./Table";
+import EffectInfo from "./EffectInfo";
 
 function App() {
   return (
